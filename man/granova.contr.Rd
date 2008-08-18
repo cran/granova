@@ -5,7 +5,7 @@
  Provides graphic displays that shows data and effects for a priori contrasts in ANOVA contexts; also corresponding numerical results.
 }
 \usage{
-granova.contr(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp)
+granova.contr(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp, jj = 1)
 }
 \arguments{
   \item{resp}{Vector of scores for all equally sized groups.}
@@ -15,6 +15,8 @@ granova.contr(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp)
     of groups less one (i.e., to df 'among'), then \code{npg} must be set equal to the number in each group
     (presumed equal for all groups).  The default \code{npg} setting assumes \code{con} has one fewer column than
     the number of rows.}
+  \item{jj}{Numeric; controls \code{\link{jitter}} and confers the possibility of 
+    controlling the amount of jitter in the panel plots for the contrasts  Default is 1.}
  }
 \details{
   Function provides graphic displays of contrast effects for so-called a priori contrasts in anova. Data points are displayed
@@ -39,8 +41,12 @@ granova.contr(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp)
   a standard application might use \code{con = contr.poly(G)}, for G the number of groups; consider also \code{contr.helmert(G)}.)
   The final plot in each application shows the data for all groups or cells in the design, where groups are simply numbered from 1:G, for G the number of groups, on the horizontal axis, versus the response values on the vertical axis.
   }
-\value{Two sets of numerical results are presented: Weighted cell means for positive and negative coefficients for each a priori contrast, and summary results from \code{lm}.
-    \item{summary.lm}{Summary results for a linear model analysis based on the R function \code{lm} (When effects are simple, as in an equal n's  power of 2 design, mean differences will generally correspond to the linear regression coefficients as seen in the \code{lm} summary results.)}       \item{means.pos.neg.coeff}{table showing the (weighted) means for positive and negative coefficients for each (row) contrast, and for each row, the difference between these means in the final column}
+\value{Two sets of numerical results are presented: Weighted cell means for positive and negative coefficients 
+for each a priori contrast, and summary results from \code{lm}.
+    \item{summary.lm}{Summary results for a linear model analysis based on the R function \code{lm} 
+    (When effects are simple, as in an equal n's  power of 2 design, mean differences will generally correspond to the linear regression coefficients as seen in the \code{lm} summary results.)}       \item{means.pos.neg.coeff}{table showing the (weighted) means for positive and negative coefficients for each (row) contrast, and for each row, the difference between these means in the final column}
+    \item{means.pos.neg.coeff}{Table showing the (weighted) means for positive and negative coefficients 
+    for each (row) contrast, and for each row, the difference between these means, and the standardized effect size in the final column.}
     \item{contrasts}{Contrast matrix used.}
     \item{group.means.sds}{Group means and standard deviations.}
     \item{data}{Input data in matrix form.}
@@ -54,7 +60,11 @@ James E. Helmreich \email{ James.Helmreich@Marist.edu}
 data(rat)
 dat6 <- matrix(c(1, 1, 1, -1, -1, -1, -1, 1, 0, -1, 1, 0,
     1, 1, -2, 1, 1, -2, -1, 1, 0, 1, -1, 0, 1, 1, -2, -1, -1, 2), ncol = 5)
-granova.contr(rat[,1], dat6)
+granova.contr(rat[,1], con = dat6)
+
+#Polynomial Contrasts 
+granova.contr(rat[,1],con = contr.poly(6))
+
 #based on random data (not run)
 resp <- rt(64, 5)
 granova.contr(resp, con = contr.helmert(8))

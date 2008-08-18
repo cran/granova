@@ -1,10 +1,12 @@
 Package: granova
-Version: 1.0
-Date: 2007-8-14
+Version: 1.2
+Date: 2008-08-18
 Title: Graphical Analysis of Variance
 Author: Robert M. Pruzek <RMPruzek@yahoo.com> and James E. Helmreich <James.Helmreich@Marist.edu>
 Maintainer: James E. Helmreich <James.Helmreich@Marist.edu>
-Depends: R (>= 2.5.0), MASS, Rcmdr, DAAG, tcltk, car, rgl, mgcv
+Depends: R (>= 2.5.0)
+Imports: Rcmdr
+Suggests: mgcv, rgl, car, tcltk, DAAG, MASS
 Description: This small collection of functions provides distinctive graphics for display of anova
     results. The two principal functions are granova.1w (a graphic for one way anova) and
     granova.2w (a corresponding graphic for two way anova). These functions were written to display
@@ -23,4 +25,4 @@ Description: This small collection of functions provides distinctive graphics fo
     provided to facilitate construction of graphics that accommodate diverse features of data, and their
     corresponding display requirements.
 License: GPL (version 2 or later)
-Packaged: Tue Aug 14 07:08:01 2007; J
+Packaged: Mon Sep 29 06:18:01 2008; J

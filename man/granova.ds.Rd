@@ -1,12 +1,15 @@
 \name{granova.ds}
 \alias{granova.ds}
-\title{Granova for display of Dependent Samples}
-\description{Plots dependent samples as a scatterplot, together with various summary information: effect size, distribution of X-Y differences,
-means for X and Y, a 95\% confidence interval for effect size.  Standard t-statistic and other numerical results also returned.
+\title{Granova for Display of Dependent Sample Data}
+\description{Plots dependent sample data beginning from a scatterplot for the X,Y pairs; proceeds to 
+    display difference scores as point projections; also X and Y means, as well as the mean of the 
+    difference scores. Also prints various summary statistics including: effect size, means for X and Y, 
+    a 95\% confidence interval for the mean difference as well as the t-statistic and degrees of freedom.
 }
 \usage{
-granova.ds(xdata, revc = FALSE, sw = 0.4, ne = 0.5, labcex = 1, ident = FALSE, pt.lab = NULL,
-xlab = NULL, ylab = NULL, main = NULL, sub = NULL, par.orig = TRUE)
+granova.ds(xdata, revc = FALSE, sw = 0.4, ne = 0.5, ptpch=c(19,3), ptcex=c(1,1.4), labcex = 1, ident = FALSE, 
+        colors = c(1,2,1,4,2,'green3'), pt.lab = NULL,
+        xlab = NULL, ylab = NULL, main = NULL, sub = NULL, par.orig = TRUE)
 }
 \arguments{
   \item{xdata}{is an n X 2 dataframe. First column defines X (intially for horzontal axis), the second defines Y. }
@@ -14,8 +17,14 @@ xlab = NULL, ylab = NULL, main = NULL, sub = NULL, par.orig = TRUE)
   \item{sw}{extends axes toward lower left, effectively moving data points to the southwest.}
   \item{ne}{extends axes toward upper right, effectively moving data points to northeast. Making both sw and ne smaller moves points farther
     apart, while making both larger moves data points closer together.}
+  \item{ptpch}{controls the pch of the (X,Y) points and of differences score points.} 
+  \item{ptcex}{controls the cex of the (X,Y) points and of differences score points.}
   \item{labcex}{controls size of axes labels.}
   \item{ident}{logical, default FALSE. Allows user to identify individual points.}
+  \item{colors}{vector defining colors of six components of the plot: (X,Y) points, horizontal and vertical dashed lines representing 
+                means of the two groups, light dashed diagonal lines connecting (X,Y) points and projections differences dotplot,  
+                differences arranged as a dotplot, heavy dashed diagonal line representing the mean of differences, 
+                confidence interval. }
   \item{pt.lab}{optional character vector defining labels for points.  Only used if ident is TRUE.
                 If NULL, rownames(xdata) are used if available; if not 1:n is used.}
   \item{xlab}{optional label (as character) for horizontal axis. If not defined, axis labels are taken from colnames of xdata.}
@@ -54,8 +63,11 @@ James E. Helmreich \email{ James.Helmreich@Marist.edu}
  }
 
 \examples{
-library(DAAG) #Data analysis and graphics, by John McDonald
-data(pair65) #length of stretched rubber bands; scores show length after being heated (X), as well as at ambient temperature (Y).
+#Data analysis and graphics, by John McDonald
+library(DAAG) 
+#length of stretched rubber bands; scores show length 
+#after being heated (X), as well as at ambient temperature (Y).
+data(pair65) 
 granova.ds(pair65, main = "Dependent sample assessment plot for pair65 data, n = 9")
 
 }

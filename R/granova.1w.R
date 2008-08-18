@@ -1,6 +1,6 @@
 granova.1w <- function(yy, group = NULL, dg = 2, h.rng = 1.25, v.rng = .2, box = FALSE, jj = 1, kx = 1, px = 1,
    size.line = -2.5, top.dot = .15, trmean = FALSE, resid = FALSE,  
-   dosqrs = TRUE, ident = FALSE, pt.lab = NULL, xlab = NULL, ylab = NULL, main = NULL){
+   dosqrs = TRUE, ident = FALSE, pt.lab = NULL, xlab = NULL, ylab = NULL, main = NULL, ...){
 # Graphic corresponds to conventional one-way ANOVA, either vector or matrix input; plots grouped data from yy.
 # If yy is matrix, columns are taken to be groups of equal size (so 'group' is NULL).
 # If yy is a vector, 'group' must be a vector, perhaps a factor, indicating groups.
@@ -29,6 +29,14 @@ op <- par(no.readonly = TRUE)
 on.exit(par(op))
 par(pty='s')
 
+mtdff <- is.data.frame(yy)
+print(mtdff)
+ln.yy<-(length(names(yy))>1)
+if(mtdff){
+if(ln.yy){ yy <- as.matrix(yy)
+}
+}
+
 #Testing input data type
 mtx <- is.matrix(yy)
 if(!mtx){yr <- yy
@@ -40,6 +48,7 @@ if(mtx & is.null(colnames(yy))) { #Note changes here;did not work before, and I 
      dmyy2<-dim(yy)[2]
      cnms<-LETTERS[1:dmyy2]     #Note that numbers replaced by LETTERS if initial matrix yy does not have col. names
      colnames(yy)<-c(paste(" G",cnms)) }  #1:dim(yy)[2]))
+print(yy)
 
 if(mtx){ group <- rep(1:ncol(yy), each = nrow(yy)) 
          groupf<-factor(group,labels=colnames(yy))
@@ -87,8 +96,11 @@ if(box)box(lwd = 1.5)
 statsro<-stats[order(stats[,4]),]
 
 #Labels vertical dotted lines through groups with group sizes, names
-mtext(side = 3,text = paste(as.character(statsro[,1]),rownames(statsro)), at = statsro[,2], las = 2, 
+mtext(side = 3,text = paste(as.character(statsro[,1])), at = statsro[,2], las = 2, 
         line = size.line, cex.axis = .85*px, cex = .7*kx, col = 'darkred')
+
+mtext(side = 3,text = paste(rownames(statsro)), at = statsro[,2], las = 2, 
+        line = size.line+.9, cex.axis = .85*px, cex = .7*kx, col = 'black')
 mtext(side = 3, text = " Group Sizes:", adj=0, line = size.line, cex=.65*kx, col = 'darkred')
 mtext(side = 3, text = "|", at = statsro[,2], las=1, adj = 0, line = size.line-.9, cex.axis = .85*px, cex = .7*kx)
 
@@ -184,7 +196,7 @@ if(ident){
          if(is.null(pt.lab) & !mtx & !is.null(rownames(yy))){pt.lab<-rownames(yy)}
          if(is.null(pt.lab) & !mtx & is.null(rownames(yy))){pt.lab<-1:length(yy)}
          if(is.null(pt.lab) & mtx){pt.lab<-paste(rep(1:dim(yy)[1],dim(yy)[2]),",", rep(1:dim(yy)[2],ea = dim(yy)[1]), sep="")}
-         identify(stats.vcj,yr,labels = pt.lab)
+         identify(stats.vcj,yr,labels = pt.lab, ...)
          }
 
 return(out)

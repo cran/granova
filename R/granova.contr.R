@@ -1,4 +1,4 @@
-granova.contr <- function(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp) {
+granova.contr <- function(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp, jj = 1) {
 
 # Plots responses by contrasts.
 # 'resp' must be vector of scores for all equal size groups.
@@ -9,9 +9,11 @@ granova.contr <- function(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp) 
 # The default 'npg' setting assumes 'con' has one fewer column than the number of rows.
 # Basic lm (regression) results are provided; orthogonal contrasts are ideal (but not essential).
 # Notify rmpruzek@yahoo.com or james.helmreich... for questions, or suggestions about uses/publications.
-
+# 'jj' controls jitter.
 # Makes 'pause()' available....thanks to J.Maindonald
 require(DAAG)
+
+jj<-.1*jj
 
 mtx.tst <- is.matrix(resp)
 if(mtx.tst){stop('Input resp must be a vector, not a matrix')}
@@ -69,7 +71,7 @@ rgy<-rgy+c(-0.1*rgyd,0.1*rgyd)
 mns.cgps<-matrix(0,ncx,2)
 
 for(i in 1:ncx) {
-plot(jitter(Xconss[, i][Xconss[, i] != 0.], 0.08), resp[Xconss[, i] != 0.], xlim = rgx, ylim = rgy, xlab = "", ylab = "", pch = 16, cex=1)
+plot(jitter(Xconss[, i][Xconss[, i] != 0.], jj), resp[Xconss[, i] != 0.], xlim = rgx, ylim = rgy, xlab = "", ylab = "", pch = 16, cex=1)
 title(xlab = paste("Contrast", i))
 title(ylab = "Responses")
 title(main = paste("Coefficients vs. Response, contrast", dmm[i]))
@@ -86,12 +88,19 @@ if(i==4 || i==8 ){print('Examine contrast plots & consider printing')
      pause()}
      }
 
-plot(jitter(vn, 0.15), resp, xlab = "Group Indicator", ylab = "Response Variable", pch=16, col = 1, axes = F)
+datagps<-matrix(resp,ncol=ngrp)
+cM<-colMeans(datagps)
+
+plot(jitter(vn, amount = jj/3), resp, xlab = "Group Indicator", ylab = "Response Variable", pch=16, col = 1, axes = F)
 box()
+lines(x=1:ngrp,y=cM, lwd = 2, lty = 6, col = 4)
+points(x=1:ngrp, y=cM, col = 4,pch=1,  cex=2)
 abline(h=mnrsp,lty=3,col=4)
 axis(side = 1, at = c(1:ngrp))
 axis(side = 2, at = NULL)
 title(paste("Responses for all groups, each n=", npg))
+
+
 
 contrst<-Xconss
 datlm <- lm(resp ~ contrst)
@@ -99,13 +108,21 @@ datlm <- lm(resp ~ contrst)
 #Xcon reset to con, but now w/ 'standardized' scaling
 Xcon <- std.contr(con)
 dimnames(Xcon)[2] <- list((unclass(dimnames(con))[2])[[1]])
-datagps<-matrix(resp,ncol=ngrp)
-dataSummry<-round(rbind(colMeans(datagps), apply(datagps, 2, sd)), 2)
+
+#Note: moved next line to 91 in order to connect means in last panel
+#datagps<-matrix(resp,ncol=ngrp)
+
+
+st.devs <- apply(datagps, 2, sd)
+st.dev.pooled <- (mean(st.devs^2))^.5
+
+dataSummry<-round(rbind(colMeans(datagps), st.devs), 2)
 dimnames(dataSummry)<-list(c('Means','S.D.s'),NULL)
 
 dif.cs<-mns.cgps[,2]-mns.cgps[,1]
-mns.cgps<-cbind(mns.cgps,dif.cs)
-dimnames(mns.cgps)<-list(dmm,c('neg','pos','diff'))
+st.effect.size <- dif.cs/st.dev.pooled
+mns.cgps<-cbind(mns.cgps,dif.cs,st.effect.size)
+dimnames(mns.cgps)<-list(dmm,c('neg','pos','diff','stEftSze'))
 
 out<-list(summary(datlm), round(mns.cgps, 2), Xcon, dataSummry, datagps)
 names(out)<-c("summary.lm", "means.pos.neg.coeff", "contrasts", "group.means.sds", "data")

@@ -1,4 +1,4 @@
-granova.2w <- function(data.A.B, fit = "linear", ident = FALSE){
+granova.2w <- function(formula = NULL, data.A.B, fit = "linear", ident = FALSE, offset = NULL, ...){
 
 # Function depicts two-way ANOVA using data-based contrasts.
 # Argument 'data.A.B' should be an n X 3 dataframe.  If the rows are named uniquely, then points
@@ -10,10 +10,18 @@ granova.2w <- function(data.A.B, fit = "linear", ident = FALSE){
 # The 'fit' is defaulted to 'linear' where interaction is not fit (i.e. flat
 # surface based on predicting cell means using row and column marginal effects).
 # Replace 'linear' with, say, quadratic to produce a curved surface.
-# This version uses a product contrast predictor in scatter3d, in effect depicting graphically Tukey's one
-# degree of freedom for non-additivity; the last line of the model summary for the 2nd ANOVA shows the Tukey
-# 1 df.non-additivity.effect
 # Note: right click on the scatterplot to terminate 'identify' and return the output from the function.
+# ... sends other optional commands to scatter3.
+# If offset is NULL, then identif3d default is used for offset
+
+
+require(rgl)
+require(car)
+require(tcltk)
+require(mgcv)
+Rcmdr:::scatter3d
+Rcmdr:::identify3d
+
 
 mtx <- is.data.frame(data.A.B)
 if(!mtx)data.A.B <- data.frame(data.A.B)
@@ -42,11 +50,14 @@ group.factor <- factor(c(rep(0,N), rep(1, vA*vB)))
 #mnsA,B are lengths of A,B vectors with appropriate means
 mnsA <- as.numeric(cell.mnsA)[A]
 mnsB <- as.numeric(cell.mnsB)[B]
-ordA<-order(cell.mnsA)
-ordB<-order(cell.mnsB)
+ordA <- order(cell.mnsA)
+ordB <- order(cell.mnsB)
 
-mns.matrx<-mns.matrx[ordA,ordB]
-cell.cnts<-table(A,B)[ordA,ordB]
+mns.matrx <- mns.matrx[ordA,ordB]
+cell.cnts <- table(A, B, dnn = colnames(data.A.B[2:3]) )[ordA, ordB]
+
+#Line 55 is test.
+dimnames(mns.matrx)<-dimnames(cell.cnts)
 
 #grandmean
 grndmean <- mean(yy)
@@ -55,7 +66,9 @@ grndmean <- mean(yy)
 facA.mn.cntrst <- mnsA - grndmean
 facB.mn.cntrst <- mnsB - grndmean
 
-aov.yy <- aov(yy ~ factor(A)*factor(B))
+#Allow user defined model for basic two way analysis of variance summary.
+if(is.null(formula)){formula<-yy ~ factor(A)*factor(B)}
+aov.yy <- aov(formula=formula,data=data.A.B)
 
 #Trying to put means in: something of a hack.  Adding points at the means for each cell,
 #then using the group feature of scatter3d to give them a different color.   Scatter3d
@@ -70,14 +83,19 @@ facB.mn.cntrst <- c(facB.mn.cntrst, mnsBB)
 yy <- c(yy,mns.vec)
 aaa<- paste(1:length(unique(A)), rep(paste(1:length(unique(B)), "mean", sep=""), ea = length(unique(A))), sep = "")
 
-out <- list('A.effects' = signif(sort(cell.mnsA-grndmean),3), 'B.effects' = signif(sort(cell.mnsB-grndmean),3),
-             CellCounts.Reordered = signif(cell.cnts,3), CellMeans.Reordered = signif(mns.matrx,3), aov.summary = summary(aov.yy))
+out <- list(signif(sort(cell.mnsA-grndmean),3), signif(sort(cell.mnsB-grndmean),3), signif(cell.cnts,3), signif(mns.matrx,3), summary(aov.yy))
+names(out)<-c(paste(colnames(data.A.B[2]),".effects",sep=""),paste(colnames(data.A.B[3]),".effects",sep=""), 
+  "CellCounts.Reordered", "CellMeans.Reordered", "aov.summary")
 
 if(is.null(rownames(data.A.B))){rownames(data.A.B) <- 1:N}
+if(is.null(offset)){
+offset<-(((100/length(mnsA))^(1/3)) * 0.02)
+}
 
-scatter3d(facA.mn.cntrst, yy, facB.mn.cntrst, xlab = colnames(data.A.B)[2], ylab = 'Response', 
-    zlab = colnames(data.A.B)[3], group = group.factor, fogtype='exp2',fov=55, surface = TRUE, fit = fit, surface.col = c(4,8))
-if(ident){identify3d(facA.mn.cntrst, yy, facB.mn.cntrst, labels = c(rownames(data.A.B), aaa))}
+
+scatter3d(facA.mn.cntrst, yy, facB.mn.cntrst, xlab = colnames(data.A.B)[2], ylab = colnames(data.A.B[1]), 
+    zlab = colnames(data.A.B)[3], group = group.factor, fogtype='exp2',fov=55, surface = TRUE, fit = fit, surface.col = c(4,8), ...)
+if(ident){identify3d(facA.mn.cntrst, yy, facB.mn.cntrst, labels = c(rownames(data.A.B), aaa), offset = offset)}
 
 return(out)
 }
