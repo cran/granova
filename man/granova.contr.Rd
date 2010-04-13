@@ -5,14 +5,15 @@
  Provides graphic displays that shows data and effects for a priori contrasts in ANOVA contexts; also corresponding numerical results.
 }
 \usage{
-granova.contr(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp, jj = 1)
+granova.contr(resp, con, ngrp = nrow(con), 
+     npg = length(resp)/ngrp, jj = 1)
 }
 \arguments{
   \item{resp}{Vector of scores for all equally sized groups.}
   \item{con}{Matrix of column contrasts with dimensions (number of groups [G]) x (number of contrasts) [generally G X G-1].}
-  \item{ngrp}{Numeric; the number of rows = number 'cells' or groups [G]; default = \code{nrows(resp)}.}
+  \item{ngrp}{Numeric; default = \code{nrows(resp)}.  The number of rows = number `cells' or groups [G].}
   \item{npg}{Numeric; default is \code{length(resp)/ngrp}.  If the number of contrasts is NOT equal to the number
-    of groups less one (i.e., to df 'among'), then \code{npg} must be set equal to the number in each group
+    of groups less one (i.e., to df `among'), then \code{npg} must be set equal to the number in each group
     (presumed equal for all groups).  The default \code{npg} setting assumes \code{con} has one fewer column than
     the number of rows.}
   \item{jj}{Numeric; controls \code{\link{jitter}} and confers the possibility of 
@@ -25,7 +26,7 @@ granova.contr(resp, con, ngrp = nrow(con), npg = length(resp)/ngrp, jj = 1)
   compared in any contrast (coefficients of zero) are ignored. For each contrast (generally as part of a 2 x 2 panel) a line
   segment is given that compares the (weighted) mean of the response variable for the negative coefficients versus the positive
   coefficients. Standardized contrasts are used, wherein the sum of (magnitudes) of negative coefficients is unity; and the same
-  for positive coefficients. If a line is 'notably' different from horizontal (i.e. slope of zero), a 'notable' effect has
+  for positive coefficients. If a line is `notably' different from horizontal (i.e. slope of zero), a `notable' effect has
   been identified; however, the question of statistical significance generally depends on a sound context-based estimate of
   standard error for the corresponding effect. This means that while summary aov numerical results and test statistics are presented
   (see below), the appropriateness of the default standard error generally requires the analyst's judgment. The response
@@ -58,8 +59,8 @@ James E. Helmreich \email{ James.Helmreich@Marist.edu}
 \seealso{ \code{\link{granova.1w}}, \code{\link{granova.2w}}, \code{\link{granova.ds}} }
 \examples{
 data(rat)
-dat6 <- matrix(c(1, 1, 1, -1, -1, -1, -1, 1, 0, -1, 1, 0,
-    1, 1, -2, 1, 1, -2, -1, 1, 0, 1, -1, 0, 1, 1, -2, -1, -1, 2), ncol = 5)
+dat6 <- matrix(c(1, 1, 1, -1, -1, -1, -1, 1, 0, -1, 1, 0, 1, 1, -2, 
+    1, 1, -2, -1, 1, 0, 1, -1, 0, 1, 1, -2, -1, -1, 2), ncol = 5)
 granova.contr(rat[,1], con = dat6)
 
 #Polynomial Contrasts 

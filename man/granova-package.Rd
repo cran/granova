@@ -31,13 +31,15 @@ This small collection of functions provides distinctive graphics for display of 
 \details{
 \tabular{ll}{
 Package: \tab granova\cr
-Version: \tab 1.1\cr
+Version: \tab 1.3\cr
 License: \tab GPL (>= 2)\cr
 }
 }
 
 \author{
-Robert M. Pruzek <RMPruzek@yahoo.com> and James E. Helmreich <James.Helmreich@Marist.edu>
+Robert M. Pruzek <RMPruzek@yahoo.com> 
+ 
+James E. Helmreich <James.Helmreich@Marist.edu>
 
 Maintainer: James E. Helmreich <James.Helmreich@Marist.edu>
 }

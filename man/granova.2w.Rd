@@ -5,7 +5,8 @@
   Produces a rotatable graphic (controlled by the mouse) to display all data points for any two way analysis of variance.
 }
 \usage{
-granova.2w(formula = NULL, data.A.B, fit = "linear", ident = FALSE, offset = NULL, ...)
+granova.2w(formula = NULL, data.A.B, fit = "linear", ident = FALSE, 
+       offset = NULL, ...)
 }
 \arguments{
   \item{data.A.B}{An N X 3 dataframe. (If it is a matrix, it will be converted to a df.) Column 1 must contain response values or
@@ -22,7 +23,7 @@ granova.2w(formula = NULL, data.A.B, fit = "linear", ident = FALSE, offset = NUL
     Function depicts data points graphically in a window using the row by column set-up for a two-way ANOVA; 
     the graphic is rotatable, controlled by the mouse. Data-based contrasts (cf. description for one-way ANOVA: 
     \code{\link{granova.1w}}) are used to ensure a flat surface -- corresponding to an additive fit 
-    (if fit='linear'; see below) -- for all cells. Points are displayed 'vertically' 
+    (if fit=`linear'; see below) -- for all cells. Points are displayed `vertically' 
     (initially) with respect to the fitting surface. In particular, (dark blue) spheres are used to show 
     data points for all groups. The mean for each cell is shown as a white sphere. The graphic is based on 
     \code{rgl} and \code{scatter3d}; the graphic display can be zoomed in and out by scrolling, where the mouse 
@@ -68,7 +69,8 @@ f2 <- rep(rep(1:5, ea = 4), 4)
 rdat1 <- cbind(resp, f1, f2)
 granova.2w(data.A.B = rdat1)
 #
-rdat2 <- cbind(rnorm(64,10,2), sample(1:4, 64, repl = TRUE), sample(1:3, 64, repl = TRUE))
+rdat2 <- cbind(rnorm(64,10,2), sample(1:4, 64, repl = TRUE), 
+   sample(1:3, 64, repl = TRUE))
 granova.2w(data.A.B = rdat2)
 #
 granova.2w(formula = breaks ~ wool * tension, data.A.B = warpbreaks)

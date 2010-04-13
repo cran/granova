@@ -7,9 +7,11 @@
     a 95\% confidence interval for the mean difference as well as the t-statistic and degrees of freedom.
 }
 \usage{
-granova.ds(xdata, revc = FALSE, sw = 0.4, ne = 0.5, ptpch=c(19,3), ptcex=c(1,1.4), labcex = 1, ident = FALSE, 
+granova.ds(xdata, revc = FALSE, sw = 0.4, ne = 0.5, ptpch=c(19,3), 
+        ptcex=c(1,1.4), labcex = 1, ident = FALSE, 
         colors = c(1,2,1,4,2,'green3'), pt.lab = NULL,
-        xlab = NULL, ylab = NULL, main = NULL, sub = NULL, par.orig = TRUE)
+        xlab = NULL, ylab = NULL, main = NULL, sub = NULL, 
+        par.orig = TRUE)
 }
 \arguments{
   \item{xdata}{is an n X 2 dataframe. First column defines X (intially for horzontal axis), the second defines Y. }
@@ -68,7 +70,8 @@ library(DAAG)
 #length of stretched rubber bands; scores show length 
 #after being heated (X), as well as at ambient temperature (Y).
 data(pair65) 
-granova.ds(pair65, main = "Dependent sample assessment plot for pair65 data, n = 9")
+granova.ds(pair65, 
+  main = "Dependent sample assessment plot for pair65 data, n = 9")
 
 }
 \keyword{hplot}
