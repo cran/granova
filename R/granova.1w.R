@@ -30,7 +30,6 @@ on.exit(par(op))
 par(pty='s')
 
 mtdff <- is.data.frame(yy)
-print(mtdff)
 ln.yy<-(length(names(yy))>1)
 if(mtdff){
 if(ln.yy){ yy <- as.matrix(yy)
@@ -48,7 +47,6 @@ if(mtx & is.null(colnames(yy))) { #Note changes here;did not work before, and I 
      dmyy2<-dim(yy)[2]
      cnms<-LETTERS[1:dmyy2]     #Note that numbers replaced by LETTERS if initial matrix yy does not have col. names
      colnames(yy)<-c(paste(" G",cnms)) }  #1:dim(yy)[2]))
-print(yy)
 
 if(mtx){ group <- rep(1:ncol(yy), each = nrow(yy)) 
          groupf<-factor(group,labels=colnames(yy))
@@ -74,7 +72,6 @@ grandmean <- mean(yr)
 #Stats now has 6 cols, first is group size, second group mean minus grandmean, 
 #third is weighted (by group size) mean, then mean, var, sd.
 stats <- cbind(tabc,stats[,1]-grandmean, tabc.dm * stats[,1],stats)
-
 pt.size<-1
 if(max(stats[,1] >= 20))pt.size <- .7
 
@@ -121,9 +118,11 @@ axis(side = 2, at = round(range(yr), dg-1), cex=.55*kx)
 axis(side = 4, at = round(stats[,4],dg-1), las=2, cex.axis = .7*px)
 
 #Horizontal and vertical lines at each group mean; line through group means
-abline(h=stats[,4],lty=2,lwd=.4,col=4)
-for(i in 1:ngroups)lines(rep(stats[i,2],2),c(rng.vv[1]- .1* diff(range(yr)), max(yr)+top.dot*diff(range(yr))),lty=3,lwd=1,col=grey(.5))
+#abline(h=stats[,4],lty=2,lwd=.4,col=grey(.1))
+segments(stats[,2],stats[,4],10^10,stats[,4],lty=2,lwd=.4,col=gray(.7))
+for(i in 1:ngroups)lines(rep(stats[i,2],2),c(rng.vv[1]- .1* diff(range(yr)), max(yr)+top.dot*diff(range(yr))),lty=3,lwd=1,col=grey(.8))
 lines(stats[,2],stats[,4],lwd=1.6,col=4)
+
 
 #Red filled triangles at group means
 points(stats[,2],stats[,4],pch=2,cex=1.45*kx)
@@ -152,7 +151,7 @@ grandmean.pm.sewR<-round(grandmean.pm.sdw,dg-1)
 axis(side=2,at=grandmean.pm.sewR,col=4,cex.axis=.7*px)
 mtext(c('gm-sdw','gm+sdw'),at=grandmean.pm.sdw,side=2,line=2.1,col=4,cex=.7*kx) 
 
-abline(h=grandmean.pm.sdw,lty=3,lwd=.4,col='blue')
+abline(h=grandmean.pm.sdw,lty=3,lwd=1,col='blue')
 F.stat <- MS.b/MS.w
 
 #x and y labels

@@ -19,8 +19,8 @@ require(rgl)
 require(car)
 require(tcltk)
 require(mgcv)
-Rcmdr:::scatter3d
-Rcmdr:::identify3d
+#car:::scatter3d
+#car:::identify3d
 
 
 mtx <- is.data.frame(data.A.B)
