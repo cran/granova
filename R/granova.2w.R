@@ -16,12 +16,9 @@ granova.2w <- function(data, formula = NULL, fit = "linear", ident = FALSE,  off
 # If offset is NULL, then identif3d default is used for offset
 
 
-require(rgl)
-require(car)
-require(tcltk)
-require(mgcv)
-#car:::scatter3d
-#car:::identify3d
+#require(rgl)
+#require(tcltk)
+#require(mgcv)
 
 data.A.B<-data
 mtx <- is.data.frame(data.A.B)
@@ -104,7 +101,7 @@ scatter3d(facA.mn.cntrst, yy, facB.mn.cntrst, xlab = colnames(data.A.B)[2], ylab
     zlab = colnames(data.A.B)[3], group = group.factor, fogtype='exp2',fov=55, surface = TRUE, fit = fit, surface.col = c(4,8), ...)
 if(ident){
 	if(is.null(offset)){offset<-((100/length(facA.mn.cntrst))^(1/3)) * 0.02}
-	identify3d(facA.mn.cntrst, yy, facB.mn.cntrst, labels = c(rownames(data.A.B), aaa), offset = offset)}
+	Identify3d(facA.mn.cntrst, yy, facB.mn.cntrst, labels = c(rownames(data.A.B), aaa), offset = offset)}
 
 return(out)
 }

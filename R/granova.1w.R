@@ -86,7 +86,7 @@ rng.vv <- c(rng.v[1]-v.rng*diff(rng.v), rng.v[2] + v.rng * diff(rng.v))
 rng.rt <- diff(rng.vv)/diff(rng.h)
 rng.sts <- range(stats[, 2])
 ammt <- (jj/200) * diff(rng.sts)
-stats.vcj<-jitter(stats.vc, am = ammt)
+stats.vcj<-jitter(stats.vc, amount = ammt)
 if(is.null(main))main <- paste('One-way ANOVA displaying',ngroups,'groups')
 plot(stats.vcj, yr, pch = 16, cex = pt.size, xlab = "", ylab = "", xlim = rng.h, ylim = rng.vv, axes = F, main = main)
 if(box)box(lwd = 1.5)
@@ -142,7 +142,7 @@ MS.b<-SS.bet/df.b
 residuals<-round(yr-stats.vc,3)
 
 #Rug plot of residuals
-if(resid)rug(residuals,side=4,ti=.02,lwd=1.3,col=4)
+if(resid)rug(residuals,side=4,ticksize=.02,lwd=1.3,col=4)
 
 #sdw is standard deviation within, ie of residuals.
 sdw<-sd(residuals)*sqrt((length(yr)-1)/df.w)
