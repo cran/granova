@@ -1,4 +1,4 @@
-granova.1w <- function(yy, group = NULL, dg = 2, h.rng = 1.25, v.rng = .2, box = FALSE, jj = 1, kx = 1, px = 1,
+granova.1w <- function(data, group = NULL, dg = 2, h.rng = 1.25, v.rng = .2, box = FALSE, jj = 1, kx = 1, px = 1,
    size.line = -2.5, top.dot = .15, trmean = FALSE, resid = FALSE,  
    dosqrs = TRUE, ident = FALSE, pt.lab = NULL, xlab = NULL, ylab = NULL, main = NULL, ...){
 # Graphic corresponds to conventional one-way ANOVA, either vector or matrix input; plots grouped data from yy.
@@ -23,6 +23,8 @@ granova.1w <- function(yy, group = NULL, dg = 2, h.rng = 1.25, v.rng = .2, box =
 # and if there are only two groups, the standardized effect is printed.
 # Finally, a wide variety of numerical summary statistics are generated to complement graphic results; see grandsum & stats.
 # Please address questions, or make suggestions for improvements, to: rmpruzek@yahoo.com or james.helmreich@marist.edu
+
+yy <- data
 
 #Setting graph to square
 op <- par(no.readonly = TRUE)
@@ -119,7 +121,7 @@ axis(side = 4, at = round(stats[,4],dg-1), las=2, cex.axis = .7*px)
 
 #Horizontal and vertical lines at each group mean; line through group means
 #abline(h=stats[,4],lty=2,lwd=.4,col=grey(.1))
-segments(stats[,2],stats[,4],10^10,stats[,4],lty=2,lwd=.4,col=gray(.7))
+segments(stats[,2],stats[,4],10^10,stats[,4],lty=2,lwd=.6,col=gray(.7))
 for(i in 1:ngroups)lines(rep(stats[i,2],2),c(rng.vv[1]- .1* diff(range(yr)), max(yr)+top.dot*diff(range(yr))),lty=3,lwd=1,col=grey(.8))
 lines(stats[,2],stats[,4],lwd=1.6,col=4)
 

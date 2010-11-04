@@ -1,4 +1,4 @@
-granova.ds <- function(xdata, revc = FALSE, sw = 0.4, ne=.5, ptpch=c(19,3), ptcex=c(1,1.4), labcex = 1, ident = FALSE, 
+granova.ds <- function(data, revc = FALSE, sw = 0.4, ne=.5, ptpch=c(19,3), ptcex=c(.8,1.4), labcex = 1, ident = FALSE, 
             colors = c(1,2,1,4,2,'green3'), pt.lab = NULL,
             xlab = NULL, ylab = NULL, main = NULL, sub = NULL, par.orig = TRUE){
 
@@ -31,6 +31,8 @@ granova.ds <- function(xdata, revc = FALSE, sw = 0.4, ne=.5, ptpch=c(19,3), ptce
 op <- par(no.readonly = TRUE)
 if(par.orig){on.exit(par(op))}
 par(mai = c(1, 1.7, 1, 1.7), pty="s")
+
+xdata <- data
 
 col.dim <- dim(as.matrix(xdata))[2]
 if(!col.dim == 2){stop("Input data must be a n X 2 dataframe or matrix.")}
@@ -83,8 +85,8 @@ ext <- .025*(upb-lwb)
 segments((lwb+upb)/2+ext,lwb-ext,lwb-ext,(lwb+upb)/2+ext,lwd=2)
 
 #Rug plots of data
-rug(x, side = 3)
-rug(y, side = 4)
+rug(x, side = 3, lwd = 0.6)
+rug(y, side = 4, lwd = 0.6)
 
 #Default labels from axes taken from column names, or if none and none given explicitly are X, Y.
 if(is.null(colnames(xdata))){colnames(xdata)<-c("X","Y")}
