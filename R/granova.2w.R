@@ -11,14 +11,16 @@ granova.2w <- function(data, formula = NULL, fit = "linear", ident = FALSE,  off
 # The 'fit' is defaulted to 'linear' where interaction is not fit (i.e. flat
 # surface based on predicting cell means using row and column marginal effects).
 # Replace 'linear' with, say, quadratic to produce a curved surface.
-# Note: right click on the scatterplot to terminate 'identify' and return the output from the function.
+# Note: right click on the scatterplot to terminate 'Identify' and return the output from the function.
 # ... sends other optional commands to scatter3.
 # If offset is NULL, then identif3d default is used for offset
 
 
-#require(rgl)
-#require(tcltk)
-#require(mgcv)
+require(rgl)
+require(tcltk)
+require(mgcv)
+#car:::scatter3d
+#car:::Identify3d
 
 data.A.B<-data
 mtx <- is.data.frame(data.A.B)
