@@ -16,11 +16,8 @@ granova.2w <- function(data, formula = NULL, fit = "linear", ident = FALSE,  off
 # If offset is NULL, then identif3d default is used for offset
 
 
-require(rgl)
-require(tcltk)
-require(mgcv)
-#car:::scatter3d
-#car:::Identify3d
+
+
 
 data.A.B<-data
 mtx <- is.data.frame(data.A.B)
@@ -73,7 +70,7 @@ facA.mn.cntrst <- mnsA - grndmean
 facB.mn.cntrst <- mnsB - grndmean
 
 #Allow user defined model for basic two way analysis of variance summary.
-if(is.null(formula)){formula<-as.formula(print(paste(resp.name,"~",A.name,"*",B.name),quote=F))}
+if(is.null(formula)){formula<-as.formula(paste(resp.name,"~",A.name,"*",B.name))}
 aov.yy <- aov(formula=formula,data=data.A.B)
 
 #Trying to put means in: something of a hack.  Adding points at the means for each cell,
@@ -98,12 +95,13 @@ if(is.null(offset)){
 offset<-(((100/length(mnsA))^(1/3)) * 0.02)
 }
 
-
-scatter3d(facA.mn.cntrst, yy, facB.mn.cntrst, xlab = colnames(data.A.B)[2], ylab = colnames(data.A.B[1]), 
+suppressWarnings(
+car::scatter3d(facA.mn.cntrst, yy, facB.mn.cntrst, xlab = colnames(data.A.B)[2], ylab = colnames(data.A.B[1]), 
     zlab = colnames(data.A.B)[3], group = group.factor, fogtype='exp2',fov=55, surface = TRUE, fit = fit, surface.col = c(4,8), ...)
+)
 if(ident){
 	if(is.null(offset)){offset<-((100/length(facA.mn.cntrst))^(1/3)) * 0.02}
-	Identify3d(facA.mn.cntrst, yy, facB.mn.cntrst, labels = c(rownames(data.A.B), aaa), offset = offset)}
+	car::Identify3d(facA.mn.cntrst, yy, facB.mn.cntrst, labels = c(rownames(data.A.B), aaa), offset = offset)}
 
 return(out)
 }

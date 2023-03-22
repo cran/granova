@@ -1,8 +1,8 @@
-272bb5a12fcaa1790ba53aa40def2bde *DESCRIPTION
-0a69aacbdab64dda6d683ddbe3eec839 *NAMESPACE
+3b10d99c8229b8bec8cc60a135bf646f *DESCRIPTION
+94f4c9b3555dc181c4d83a6e4a80c2e3 *NAMESPACE
 55ede82b3ef5ac6f08667108414789b3 *R/granova.1w.R
-f7a9c85862c32dd7addcddd37d96a9ae *R/granova.2w.R
-f1f23fd3d3794dd9580b3a90f45eab40 *R/granova.contr.R
+e75b074e3dd1387e55b449e1876e326b *R/granova.2w.R
+8b17155783d3727f580b3f5e36e7e28c *R/granova.contr.R
 b876477862ad0dc12b1d1131e904428b *R/granova.ds.R
 be647e3c26591506ebacff3dd44b1512 *data/anorexia.sub.rda
 303e16efc671d862c2632cf63ad34c8d *data/arousal.rda
@@ -12,9 +12,9 @@ a63500314434d49220bdfa2b51fb46ed *data/blood_lead.rda
 b216aeaeef686e849c063b84e7948c7b *man/anoexia.sub.Rd
 f323dc8e2bb566a302eadd6e4651fb1e *man/arousal.Rd
 d7a5576b443f09c35a544aca86953c62 *man/blood_lead.Rd
-ef6d6a3deced3be4605e9ce26965c67d *man/granova-package.Rd
-40ad0fa744ef6cff13da299792e5f1d8 *man/granova.1w.Rd
-8c9208ec15f57798e3efd5e479c81eb4 *man/granova.2w.Rd
+eed97206b1aa60899744dd725bc14b30 *man/granova-package.Rd
+52bc76f044a83e9b25c141bb170a81d7 *man/granova.1w.Rd
+73f884565bece45373a8b0560f6608d7 *man/granova.2w.Rd
 9d1a80be645616e8f8867cc0861201bb *man/granova.contr.Rd
 9fac96ecec7128fb508237ba917139e1 *man/granova.ds.Rd
 851a2de30a031a3fcc439d00aef69751 *man/poison.Rd

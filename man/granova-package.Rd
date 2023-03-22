@@ -34,7 +34,7 @@ This small collection of functions provides what we call elemental graphics for 
 \details{
 \tabular{ll}{
 Package: \tab granova\cr
-Version: \tab 2.0\cr
+Version: \tab 2.2\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -44,7 +44,7 @@ Robert M. Pruzek <RMPruzek@yahoo.com>
  
 James E. Helmreich <James.Helmreich@Marist.edu>
 
-Maintainer: James E. Helmreich <James.Helmreich@Marist.edu>
+Maintainer: Frederic Bertrand <frederic.bertrand@utt.fr>
 }
 
 \seealso{

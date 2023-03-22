@@ -92,6 +92,7 @@ rdat2 <- cbind(rnorm(64, 10, 2), sample(1:4, 64, repl = TRUE),
 granova.2w(rdat2)
 #
 #
+\donttest{
 data(poison)
 #Raw Survival Time as outcome measure:
 granova.2w(poison[, c(4, 1, 2)])
@@ -107,6 +108,7 @@ granova.2w(poison[, c(5, 1, 2)], fit = 'quadratic')
 #
 #Ranked Version of Inverse:
 granova.2w(poison[, c(6, 1, 2)])
+}
 }
 \keyword{hplot}
 

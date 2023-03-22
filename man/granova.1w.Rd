@@ -78,7 +78,7 @@ granova.1w(arousal[,1:2], h.rng = 1.6, v.rng = 0.5, top.dot = .35)
 
 #########################
 
-library(MASS)
+data(anorexia, package="MASS")
 wt.gain <- anorexia[, 3] - anorexia[, 2]
 granova.1w(wt.gain, group = anorexia[, 1], size.line = -3)
 

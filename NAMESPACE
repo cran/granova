@@ -1,2 +1,10 @@
-export(granova.1w, granova.2w, granova.ds, granova.contr)
+importFrom("grDevices", "gray", "grey")
+importFrom("graphics", "abline", "axis", "box", "identify", "legend",
+           "lines", "mtext", "par", "points", "rug", "segments",
+           "symbols", "title")
+importFrom("stats", "aov", "as.formula", "cor", "lm", "pf", "sd",
+           "t.test", "var")
+importFrom("utils", "stack")
 importFrom(car, scatter3d, Identify3d)
+
+export(granova.1w, granova.2w, granova.ds, granova.contr)

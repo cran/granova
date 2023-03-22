@@ -59,6 +59,7 @@ vn <- rep(1:ngrp, ea = npg)
 Xcon <- xind %*% con
 Xcons <- std.contr(Xcon)
 ncx <- ncol(Xcons)
+
 dimnames(Xcon)[2] <- list((unclass(dimnames(con))[2])[[1]])
 dmm<-dimnames(Xcon)[2][[1]]
 if(is.null(dmm))dmm<-1:ncol(con)
@@ -99,13 +100,13 @@ for (i in 1:ncx) {
             i] < 0]), pch = 1, cex = 2, col = 4)
         points(mean(Xconss[, i][Xconss[, i] > 0]), mean(resp[Xconss[, 
             i] > 0]), pch = 1, cex = 2, col = 4)
-        if (i == 4 || i == 8 || i == 12 || i == 16 || i == 20) {
-            print("Examine contrast plots & consider printing")
-           # pause() is next three lines, taken from DAAG
-        if (interactive()){ 
-        readline("Pause. Press <Enter> to continue...")
-        invisible()}
-        }
+        #if (i == 4 || i == 8 || i == 12 || i == 16 || i == 20) {
+        #    print("Examine contrast plots & consider printing")
+        #   # pause() is next three lines, taken from DAAG
+        #if (interactive()){ 
+        #readline("Pause. Press <Enter> to continue...")
+        #invisible()}
+        #}
     }
 
 datagps<-matrix(resp,ncol=ngrp)
@@ -143,7 +144,6 @@ datlm <- lm(resp ~ contrst)
         datagps)
     names(out) <- c("summary.lm", "means.pos.neg.coeff", "contrasts", 
         "group.means.sds", "data")
-    on.exit(par(op))
     return(out)
 
 
